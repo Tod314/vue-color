@@ -11,9 +11,16 @@ Color Pickers for Sketch, Photoshop, Chrome & more with Vue.js(vue2.0).
 ## Installation
 
 ### NPM
+for original
 ```bash
 $ npm install vue-color
 ```
+or use this fork
+```bash
+$ npm install --save-dev https://github.com/Tod314/vue-color/
+```
+
+
 
 ### CommonJS
 ```js
