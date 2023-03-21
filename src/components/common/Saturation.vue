@@ -56,8 +56,8 @@ export default {
 
       var xOffset = container.getBoundingClientRect().left + window.pageXOffset
       var yOffset = container.getBoundingClientRect().top + window.pageYOffset
-      var pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0)
-      var pageY = e.pageY || (e.touches ? e.touches[0].pageY : 0)
+      var pageX = e.clientX || (e.touches ? e.touches[0].clientX : 0)
+      var pageY = e.clientY || (e.touches ? e.touches[0].clientY : 0)
       var left = clamp(pageX - xOffset, 0, containerWidth)
       var top = clamp(pageY - yOffset, 0, containerHeight)
       var saturation = left / containerWidth
@@ -76,17 +76,21 @@ export default {
     },
     handleMouseDown (e) {
       // this.handleChange(e, true)
-      window.addEventListener('mousemove', this.handleChange)
-      window.addEventListener('mouseup', this.handleChange)
-      window.addEventListener('mouseup', this.handleMouseUp)
+      e.preventDefault()
+      this.$root.$el.addEventListener('mousemove', this.handleChange)
+      this.$root.$el.addEventListener('mouseup', this.handleChange)
+      this.$root.$el.addEventListener('mouseup', this.handleMouseUp)
+      e.stopPropagation()
     },
     handleMouseUp (e) {
+      e.preventDefault()
       this.unbindEventListeners()
+      e.stopPropagation()
     },
     unbindEventListeners () {
-      window.removeEventListener('mousemove', this.handleChange)
-      window.removeEventListener('mouseup', this.handleChange)
-      window.removeEventListener('mouseup', this.handleMouseUp)
+      this.$root.$el.removeEventListener('mousemove', this.handleChange)
+      this.$root.$el.removeEventListener('mouseup', this.handleChange)
+      this.$root.$el.removeEventListener('mouseup', this.handleMouseUp)
     }
   }
 }
